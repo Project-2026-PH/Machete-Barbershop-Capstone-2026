@@ -1,0 +1,43 @@
+{
+  "$schema": "https://unpkg.com/knip/schema.json",
+  "workspaces": {
+    ".": {
+      "entry": ["lage.config.js", "lage-worker.js"],
+      "project": ["*.{js,ts}"]
+    },
+    "demoshop-backend": {
+      "entry": [
+        "server.js",
+        "src/app.ts",
+        "src/tests/**/*.test.ts"
+      ],
+      "project": ["src/**/*.{ts,js}"],
+      "ignoreDependencies": [
+        "k6",
+        "@types/redis"
+      ]
+    },
+    "demoshop-frontend": {
+      "entry": [
+        "src/main.jsx",
+        "src/App.jsx",
+        "vite.config.{ts,js}"
+      ],
+      "project": ["src/**/*.{ts,tsx,js,jsx}"]
+    },
+    "packages/shared-types": {
+      "entry": ["index.ts"],
+      "project": ["*.ts"],
+      "ignoreDependencies": ["tsup"]
+    }
+  },
+  "ignore": [
+    "node_modules/**",
+    "dist/**",
+    "**/*.d.ts",
+    "supabase/**",
+    "init-db/**",
+    "docker-scripts/**"
+  ],
+  "ignoreExportsUsedInFile": true
+}

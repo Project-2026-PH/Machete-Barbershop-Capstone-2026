@@ -1,0 +1,36 @@
+.reservation-calendar {
+  --rdp-accent-color: #d4af37;
+  --rdp-accent-background-color: #d4af3726;
+  --rdp-day-height: 36px;
+  --rdp-day-width: 36px;
+  --rdp-day_button-height: 34px;
+  --rdp-day_button-width: 34px;
+  --rdp-outside-opacity: 0.4;
+  margin: 0;
+  color: #f5f0e6;
+  font-size: 0.8rem;
+}
+
+.reservation-calendar .rdp-selected .rdp-day_button {
+  background: #d4af37;
+  color: #1a1a1a;
+}
+
+.reservation-calendar .rdp-day_button:focus-visible,
+.reservation-calendar button:focus-visible,
+.reservation-calendar select:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 2px;
+}
+
+.reservation-calendar .rdp-day_button:hover:not(:disabled) {
+  background: #d4af3726;
+}
+
+.reservation-calendar .rdp-selected .rdp-day_button:hover {
+  background: #d4af37;
+}
+
+.reservation-calendar .rdp-dropdown {
+  color-scheme: dark;
+}

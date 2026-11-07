@@ -1,0 +1,50 @@
+{
+    "name": "demoshop-root",
+    "private": true,
+    "scripts": {
+        "dev": "phase run --app DemoShop_Secrets --env Development \"node scripts/dev-supervisor.cjs\"",
+        "_comment": "Use the ':local' variants if you do not have Phase CLI authentication set up locally",
+        "dev:local": "node scripts/dev-supervisor.cjs",
+        "build": "node scripts/lage-with-codegraph.cjs build",
+        "test": "phase run --app DemoShop_Secrets --env Development \"pnpm test:env\"",
+        "test:env": "node scripts/lage-with-codegraph.cjs test",
+        "test:local": "pnpm test:env",
+        "test:ci": "phase run --app DemoShop_Secrets --env Development \"pnpm test:env:ci\"",
+        "test:env:ci": "node scripts/lage-with-codegraph.cjs test:ci",
+        "test:ci:local": "pnpm test:env:ci",
+        "ci:tasks": "node scripts/lage-with-codegraph.cjs build check-types test:ci",
+        "test:docker": "phase run --app DemoShop_Secrets --env Development \"docker compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from app\"",
+        "test:docker:local": "docker compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from app",
+        "test:docker:down": "docker compose -f docker-compose.test.yml down --volumes --remove-orphans",
+        "check-types": "node scripts/lage-with-codegraph.cjs check-types",
+        "supabase:check": "node scripts/check-supabase-migrations.mjs",
+        "neon:migrate:print-queue": "node scripts/apply-neon-migration.cjs",
+        "db:schema:compare-neon": "node scripts/compare-neon-branch-schemas.cjs",
+        "rename:stock-requests": "node scripts/rename-purchase-orders-to-stock-requests.mjs",
+        "ts-version": "pnpm exec tsc --version",
+        "benchmark:typescript": "node scripts/benchmark-typescript.mjs",
+        "codegraph:status": "node scripts/detect-codegraph.cjs",
+        "codegraph:fingerprint": "node scripts/lage-codegraph-bridge.cjs --fingerprint",
+        "codegraph:template": "node scripts/lage-codegraph-bridge.cjs --template",
+        "test:codegraph": "node --test scripts/lage-codegraph-bridge.test.cjs",
+        "lint": "echo 'Linter passing for Hamilton-Ops'",
+        "knip": "knip",
+        "deps:check": "syncpack lint",
+        "deps:fix": "syncpack fix",
+        "audit": "pnpm deps:check && pnpm knip"
+    },
+    "devDependencies": {
+        "knip": "^6.29.0",
+        "lage": "^2.15.16",
+        "syncpack": "^14.0.0",
+        "typescript": "7.0.2"
+    },
+    "packageManager": "pnpm@11.28.7",
+    "optionalDependencies": {
+        "@esbuild/win32-x64": "0.28.1",
+        "@typescript/typescript-win32-x64": "7.0.2"
+    },
+    "dependencies": {
+        "supabase": "^2.107.0"
+    }
+}

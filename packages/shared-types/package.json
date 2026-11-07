@@ -1,0 +1,30 @@
+{
+    "name": "@demoshop/shared-types",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Shared TypeScript types for DemoShop",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js",
+            "default": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "build": "tsc -b tsconfig.build.json --force --pretty false && tsup",
+        "build:types": "tsc -b tsconfig.build.json --force --pretty false",
+        "build:force": "tsc -b tsconfig.build.json --force --pretty false && tsup",
+        "dev": "tsup --watch",
+        "lint": "eslint .",
+        "test": "echo 'no tests'",
+        "check-types": "tsc -b tsconfig.build.json --pretty false"
+    },
+    "devDependencies": {
+        "tsup": "^8.5.1",
+        "typescript": "7.0.2"
+    }
+}

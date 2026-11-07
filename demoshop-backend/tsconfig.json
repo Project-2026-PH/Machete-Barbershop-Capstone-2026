@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022"],
+    "strict": true,
+    "noImplicitOverride": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./node_modules/.cache/typescript/backend.tsbuildinfo",
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "bundler",
+    "paths": {
+      "@demoshop/shared-types": ["../packages/shared-types/index.ts"]
+    }
+  },
+  "include": ["src/**/*", "api/**/*", "scripts/**/*.ts"],
+  "exclude": ["node_modules", "**/*.test.js"],
+  "references": [{ "path": "../packages/shared-types/tsconfig.build.json" }]
+}

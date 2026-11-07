@@ -1,0 +1,30 @@
+{
+  "versionGroups": [
+    {
+      "label": "Ensure shared-types is always workspace protocol",
+      "packages": ["**"],
+      "dependencies": ["@demoshop/shared-types"],
+      "pinVersion": "workspace:*"
+    },
+    {
+      "label": "Pin esbuild to the patched overridden version across all workspaces",
+      "packages": ["**"],
+      "dependencies": ["esbuild", "@esbuild/linux-x64", "@esbuild/win32-x64"],
+      "pinVersion": "0.28.1"
+    },
+    {
+      "label": "Pin the native TypeScript compiler to the approved stable release",
+      "packages": ["**"],
+      "dependencies": ["typescript"],
+      "pinVersion": "7.0.2"
+    }
+  ],
+  "semverGroups": [
+    {
+      "label": "All third-party packages must use ^ range",
+      "packages": ["**"],
+      "dependencies": ["**"],
+      "range": "^"
+    }
+  ]
+}

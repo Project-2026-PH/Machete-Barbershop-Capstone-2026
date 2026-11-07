@@ -1,0 +1,48 @@
+server {
+    listen 8080;
+
+    # Serves the Frontend
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+        
+        # Security Headers
+        add_header X-Frame-Options "DENY" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+        add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+        add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+
+        if ($http_x_forwarded_proto = "http") {
+            return 301 https://$host$request_uri;
+        }
+    }
+
+    # PROXY requests to the Backend
+    # Anything starting with /api will be sent to the Express container
+    location /api {
+            # Resolve Vercel's Domain
+            resolver 8.8.8.8;
+
+            #Strip the '/api' prefix before sending to Vercel
+            rewrite ^/api/(.*) /$1 break;
+
+            # Proxy Configuration
+            proxy_pass ${BACKEND_VERCEL_URL};
+            proxy_ssl_server_name on; # Critical for Vercel (SNI)
+            proxy_set_header Host $proxy_host;
+            proxy_set_header X-Real-IP $remote_addr;
+
+            # Standard Proxy Headers
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_cache_bypass $http_upgrade;
+        }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
